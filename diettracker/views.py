@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from django.views import View
+from diettracker.models import Food, Meal
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'index.html')
+
+
+
