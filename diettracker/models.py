@@ -60,7 +60,7 @@ class WeightEntry(models.Model):
         unique_together = ('user', 'date')
 
 
-class Consume(models.Model):
+class Consumption(models.Model):
     """
     Model ten służy do przechowywania informacji nt ilości kalorii i makroskładników spożytych przez użytkownika danego dnia
     """
