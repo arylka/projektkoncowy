@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diettracker.apps.DiettrackerConfig',
+    'diettracker.apps.DiettrackerConfig'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'projektkoncowy.urls'
+ROOT_URLCONF = 'projectdjango.urls'
 
 TEMPLATES = [
     {

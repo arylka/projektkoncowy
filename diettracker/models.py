@@ -27,7 +27,7 @@ class User(models.Model):
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     height = models.FloatField()
     date_joined = models.DateTimeField(auto_now_add=True)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(default='2000-01-01')
     diet = models.ForeignKey(Diet, on_delete=models.SET_NULL, blank=True, null=True)
 class Food(models.Model):
     """

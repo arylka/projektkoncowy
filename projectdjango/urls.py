@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from diettracker import views
+from diettracker.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomeView.as_view(), name='index')
+    path('', views.HomeView.as_view(), name='index'),
+    path('login/', views.HomeView.as_view(), name='login')
 ]
