@@ -4,27 +4,28 @@ import csv
 conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS your_table (
-                    column1 TEXT
+cursor.execute('''CREATE TABLE IF NOT EXISTS cleandata (
+                    column1 TEXT,
+                    column32 TEXT,
+                    column77 TEXT,
+                    column78 TEXT,
+                    column149 TEXT,
+                    column172 TEXT,
+                    column173 TEXT,
+                    column178 TEXT,
+                    column182 TEXT,
+                    column190 TEXT,
+                    column202 TEXT
                     )''')
-
-# Dodaj kolejne kolumny za pomocą ALTER TABLE
-for i in range(2, 509):
-    try:
-        cursor.execute(f"ALTER TABLE your_table ADD COLUMN column{i} TEXT")
-    except sqlite3.OperationalError as e:
-        if "duplicate column name" not in str(e):
-            raise
 
 with open('C:/Users/pnowa/Downloads/openfoodfacts_export.csv', 'r', encoding='utf-8') as file:
     reader = csv.reader(file, delimiter='\t')
-    next(reader)
+    next(reader)  # Pominięcie nagłówka, jeśli istnieje
     for row in reader:
-        if len(row) < 508:
-            continue  # Pomiń wiersz, jeśli ma mniej niż 508 kolumn
-        placeholders = ', '.join(['?' for _ in range(508)])
-        query = f"INSERT INTO your_table VALUES ({placeholders})"
-        cursor.execute(query, row[:508])  # Wstaw tylko pierwsze 508 wartości z wiersza
+        if len(row) < 203:  # Sprawdź, czy wiersz ma wystarczającą liczbę kolumn
+            continue  # Pomiń wiersz, jeśli ma mniej niż 203 kolumny
+        selected_columns = [row[i] for i in [0, 31, 76, 77, 148, 171, 172, 177, 181, 189, 201]]  # Wybierz tylko określone kolumny
+        cursor.execute("INSERT INTO cleandata VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", selected_columns)
 
 conn.commit()
 conn.close()
