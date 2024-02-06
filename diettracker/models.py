@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Diet(models.Model):
     """
-    Model ten służy do przechowywania spersolanizowanych zaleceń odżywiania użytkownika
+    Model ten służy do przechowywania spersonalizowanych zaleceń odżywiania użytkownika
     """
     name = models.CharField(max_length=100)
     min_calories = models.PositiveIntegerField(blank=True, null=True)
@@ -26,6 +26,7 @@ class User(models.Model):
     name = models.CharField(max_length=20)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     height = models.FloatField()
+    weight = models.FloatField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     date_of_birth = models.DateField(default='2000-01-01')
     diet = models.ForeignKey(Diet, on_delete=models.SET_NULL, blank=True, null=True)
