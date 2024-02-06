@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from diettracker.models import Food, Meal, Consumption
-from diettracker.forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from diettracker.models import Food, Meal, Consumption
+from diettracker.forms import LoginForm
 from diettracker.forms import RegisterForm
 
 class HomeView(View):
@@ -139,3 +139,4 @@ class RegisterUser(View):
             form.save()  # Zapisanie danych formularza do bazy danych
             return redirect('success')  # Przekierowanie na stronę potwierdzającą udaną rejestrację
         return render(request, 'register.html', {'form': form})
+
