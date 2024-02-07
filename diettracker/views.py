@@ -1,9 +1,14 @@
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projectdjango.settings')
+django.setup()
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from diettracker.models import Food, Meal, Consumption
+from diettracker.models import Food, Consumption
 from diettracker.forms import LoginForm
 from diettracker.forms import RegisterForm
 

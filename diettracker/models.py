@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -15,7 +14,10 @@ class Diet(models.Model):
     max_protein = models.PositiveIntegerField(blank=True, null=True)
     max_carbohydrates = models.PositiveIntegerField(blank=True, null=True)
 
-class User(models.Model):
+    class Meta:
+        app_label = 'diettracker'
+
+class UserProfile(models.Model):
     """
     Model reprezentujący użytkownika.
     """
@@ -28,8 +30,12 @@ class User(models.Model):
     height = models.FloatField()
     weight = models.FloatField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    date_of_birth = models.DateField(default='2000-01-01')
+    date_of_birth = models.DateField(default=datetime.date(2000, 1, 1))
     diet = models.ForeignKey(Diet, on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        app_label = 'diettracker'
+
 class Food(models.Model):
     """
     Model reprezentujący produkt spożywczy.
@@ -40,6 +46,9 @@ class Food(models.Model):
     carbohydrates = models.FloatField()
     fat = models.FloatField()
 
+    class Meta:
+        app_label = 'diettracker'
+
 
 class Meal(models.Model):
     """
@@ -49,26 +58,32 @@ class Meal(models.Model):
     description = models.TextField()
     foods = models.ManyToManyField(Food)
 
+    class Meta:
+        app_label = 'diettracker'
+
 class WeightEntry(models.Model):
     """
     Model ten służy do przechowywania wpisów użytkowników dotyczących ich wagi
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     weight = models.FloatField()
     date = models.DateField()
 
     class Meta:
         unique_together = ('user', 'date')
+        app_label = 'diettracker'
 
 
 class Consumption(models.Model):
     """
     Model ten służy do przechowywania informacji nt ilości kalorii i makroskładników spożytych przez użytkownika danego dnia
     """
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     date = models.DateField()
     calories = models.PositiveIntegerField()
     fat = models.PositiveIntegerField()
     carbohydrates = models.PositiveIntegerField()
     protein = models.PositiveIntegerField()
 
+    class Meta:
+        app_label = 'diettracker'

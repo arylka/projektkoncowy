@@ -1,5 +1,5 @@
 from django import forms
-from diettracker.models import User
+from diettracker.models import UserProfile
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Nazwa użytkownika')
@@ -19,5 +19,5 @@ class RegisterForm(forms.ModelForm):
     date_of_birth = forms.DateField(label='Data urodzenia', widget=forms.DateInput(attrs={'type': 'date'}), required=True)
 
     class Meta:
-        model = User
+        model = UserProfile
         fields = ['name', 'sex', 'height', 'date_of_birth', 'diet']

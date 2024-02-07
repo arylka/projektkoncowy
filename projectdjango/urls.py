@@ -22,5 +22,5 @@ from diettracker.views import LoginView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='index'),
-    path('login/', views.HomeView.as_view(), name='login')
+    path('login/', LoginView.as_view(), name='login')
 ]
