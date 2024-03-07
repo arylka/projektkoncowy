@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <h2>Witaj, {{ user.username }}!</h2>
+    <p>Tutaj możesz zarządzać swoim kontem:</p>
+    <img src="{% url 'weight_chart' %}" alt="Weight Chart">
+ <p style="font-size: 14px;">Aby wykres wyświetlał się poprawnie, należy wprowadzić dane z co najmniej dwóch różnych dni</p>
+    <ul style="list-style-type: none; padding: 0;">
+        <li><a href="{% url 'update_weight' %}" class="customButton">Zaktualizuj wagę</a></li>
+        <li><a href="{% url 'consumption' %}" class="customButton">Dzisiejsze posiłki</a></li>
+        <li><a href="{% url 'update_diet' %}" class="customButton">Zmień dietę</a></li>
+        <li><a href="{% url 'meal_list' %}" class="customButton">Twoje posiłki</a></li>
+        <li><a href="{% url 'logout' %}" class="customButton">Wyloguj</a></li>
+    </ul>
+{% endblock %}

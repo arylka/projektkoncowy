@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DietTracker</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-image: url('https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-042.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; /* Ustawienie tła, aby nie powtarzało się */
+            height: 100%;
+        }
+
+        header {
+            background-image: url('https://food-ubc.b-cdn.net/wp-content/uploads/2021/01/AdobeStock_271185487-scaled.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            background-repeat: no-repeat;
+            height: 200px;
+            padding-top: 0;
+            z-index: 1;
+            position: relative;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 60px;
+            margin-left: 300px;
+            background: linear-gradient(90deg, #fff, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #333;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: justify;
+        }
+        nav ul:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        nav ul li a {
+            font-size: 34px;
+            text-decoration: none;
+            word-spacing: 0;
+            padding: 10px 15px;
+            color: #333;
+            font-family: "Courier New", Courier, monospace;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #007bff;
+        }
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        p {
+            font-size: 20px;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<header>
+    <h1>DietTracker</h1>
+</header>
+
+<hr>
+<body>
+
+<nav>
+    <ul>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}">Profil</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Logowanie</a></li>
+        {% endif %}
+        <li><a href="/diets">Diety</a></li>
+        <li><a href="/food">Wartości odżywcze</a></li>
+        <li><a href="#/calculator">Kalkulator</a>
+            <div class="dropdown-content">
+                <a href="/bmi">BMI</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<hr>
+
+
+</body>
+{% block content %}
+<p>Twoja podróż do wymarzonej diety zaczyna się tutaj!</p>
+{% endblock %}
+
+
+<div class="footer">
+    <p><b>Disclaimer:</b> DietTracker to narzędzie służące do monitorowania diety i promowania zdrowego stylu życia. Informacje zawarte na tej stronie nie są zastępstwem profesjonalnej porady medycznej, diagnozy lub leczenia. Zawsze skonsultuj się z lekarzem lub specjalistą od żywienia przed podjęciem jakichkolwiek zmian w swojej diecie lub stylu życia, zwłaszcza jeśli masz jakiekolwiek schorzenia zdrowotne. Nie ponosimy odpowiedzialności za jakiekolwiek szkody wynikłe z wykorzystania informacji zawartych na tej stronie.</p>
+</div>
+
+</body>
+</html>

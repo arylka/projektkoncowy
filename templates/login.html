@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>Zaloguj się</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="customButton">Zaloguj</button>
+    </form>
+
+    <p>Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
+
+    <div class="footer">
+        <p><b>Disclaimer:</b> DietTracker to narzędzie służące do monitorowania diety i promowania zdrowego stylu życia. Informacje zawarte na tej stronie nie są zastępstwem profesjonalnej porady medycznej, diagnozy lub leczenia. Zawsze skonsultuj się z lekarzem lub specjalistą od żywienia przed podjęciem jakichkolwiek zmian w swojej diecie lub stylu życia, zwłaszcza jeśli masz jakiekolwiek schorzenia zdrowotne. Nie ponosimy odpowiedzialności za jakiekolwiek szkody wynikłe z wykorzystania informacji zawartych na tej stronie.</p>
+    </div>
+{% endblock %}

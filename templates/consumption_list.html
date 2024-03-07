@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Lista Spożytych Posiłków</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Posiłek</th>
+                <th>Kcal</th>
+                <th>Białko (g)</th>
+                <th>Węglowodany (g)</th>
+                <th>Tłuszcze (g)</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consumption in today_consumption %}
+                <tr>
+                    <td>{{ consumption.name }}</td>
+                    <td>{{ consumption.calories }}</td>
+                    <td>{{ consumption.protein }}</td>
+                    <td>{{ consumption.carbohydrates }}</td>
+                    <td>{{ consumption.fat }}</td>
+                    <td>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="customButton" name="delete_consumption" value="{{ consumption.id }}">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </form>
+<form action="{% url 'consumption' %}">
+  <button type="submit" class="customButton">Wróć</button>
+</form>
+{% endblock %}

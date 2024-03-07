@@ -1,3 +1,8 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User, AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
 from django.db import models
 import datetime
 
@@ -7,34 +12,17 @@ class Diet(models.Model):
     """
     Model ten służy do przechowywania spersonalizowanych zaleceń odżywiania użytkownika
     """
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     min_calories = models.PositiveIntegerField(blank=True, null=True)
     max_calories = models.PositiveIntegerField(blank=True, null=True)
     max_fat = models.PositiveIntegerField(blank=True, null=True)
     max_protein = models.PositiveIntegerField(blank=True, null=True)
+    min_protein = models.PositiveIntegerField(blank=True, null=True)
     max_carbohydrates = models.PositiveIntegerField(blank=True, null=True)
 
     class Meta:
         app_label = 'diettracker'
 
-class UserProfile(models.Model):
-    """
-    Model reprezentujący użytkownika.
-    """
-    SEX_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female')
-    ]
-    name = models.CharField(max_length=20)
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
-    height = models.FloatField()
-    weight = models.FloatField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    date_of_birth = models.DateField(default=datetime.date(2000, 1, 1))
-    diet = models.ForeignKey(Diet, on_delete=models.SET_NULL, blank=True, null=True)
-
-    class Meta:
-        app_label = 'diettracker'
 
 class Food(models.Model):
     """
@@ -49,25 +37,17 @@ class Food(models.Model):
     class Meta:
         app_label = 'diettracker'
 
+    def __str__(self):
+        return self.name
 
-class Meal(models.Model):
-    """
-    Model reprezentujący posiłek.
-    """
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    foods = models.ManyToManyField(Food)
-
-    class Meta:
-        app_label = 'diettracker'
 
 class WeightEntry(models.Model):
     """
     Model ten służy do przechowywania wpisów użytkowników dotyczących ich wagi
     """
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     weight = models.FloatField()
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
     class Meta:
         unique_together = ('user', 'date')
@@ -78,7 +58,8 @@ class Consumption(models.Model):
     """
     Model ten służy do przechowywania informacji nt ilości kalorii i makroskładników spożytych przez użytkownika danego dnia
     """
-    user = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, default="not available")
     date = models.DateField()
     calories = models.PositiveIntegerField()
     fat = models.PositiveIntegerField()
@@ -87,3 +68,25 @@ class Consumption(models.Model):
 
     class Meta:
         app_label = 'diettracker'
+
+class Meal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=30)
+    calories = models.FloatField()
+    protein = models.FloatField(blank=True, null=True)
+    carbohydrates = models.FloatField(blank=True, null=True)
+    fat = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def is_added_by_user(self, user):
+        return UserMeal.objects.filter(user=user, meal=self).exists()
+
+class UserMeal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'meal')

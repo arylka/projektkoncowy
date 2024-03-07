@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Twoje posiłki</h1>
+<ul>
+  {% for meal in meals %}
+    <li>
+      Nazwa: {{ meal.name }}, Kcal: {{ meal.calories }},
+      Białko: <input type="text" placeholder="{% if meal.protein is not None %}{{ meal.protein }}{% endif %}" name="protein">
+      Węglowodany: <input type="text" placeholder="{% if meal.carbohydrates is not None %}{{ meal.carbohydrates }}{% endif %}" name="carbohydrates">
+      Tłuszcze: <input type="text" placeholder="{% if meal.fat is not None %}{{ meal.fat }}{% endif %}" name="fat">
+      <form method="post" action="{% url 'meal_edit' pk=meal.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Edytuj</button>
+      </form>
+      <form method="post" action="{% url 'meal_delete' pk=meal.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="delete" value="{{ meal.pk }}">
+        <button type="submit">Usuń</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Formularz do dodawania nowego posiłku -->
+<h2>Edytuj posiłek</h2>
+<form method="post" action="{% url 'meal_edit' pk=meal.pk %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="customButton">Edytuj</button>
+</form>
+{% endblock %}

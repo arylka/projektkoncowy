@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Weight Chart</h2>
+        <img src="{% url 'weight_chart' %}" alt="Weight Chart">
+        <p>Aby wykres wyświetlał się poprawnie, należy wprowadzić dane z co najmniej dwóch różnych dni</p>
+{% endblock %}

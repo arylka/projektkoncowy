@@ -3,10 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-image: url('https://food-ubc.b-cdn.net/wp-content/uploads/2021/01/AdobeStock_271185487-scaled.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            background-repeat: no-repeat;
+            height: 200px;
+            padding-top: 0;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 60px;
+            margin-left: 300px;
+            background: linear-gradient(90deg, #fff, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #333;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: justify;
+        }
+        nav ul:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        nav ul li a {
+            font-size: 34px;
+            text-decoration: none;
+            word-spacing: 0;
+            padding: 10px 15px;
+            color: #333;
+            font-family: "Courier New", Courier, monospace;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #007bff;
+        }
+        p {
+            font-size: 20px;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
 </head>
+<header>
+    <h1>DietTracker</h1>
+</header>
+
+<hr>
 <body>
 
-<h1>Home</h1>
+<nav>
+    <ul>
+        <li><a href="login">Logowanie</a></li>
+        <li><a href="#diets">Diety</a></li>
+        <li><a href="#nutrition">Wartości odżywcze</a></li>
+        <li><a href="#calculator">Kalkulator</a></li>
+    </ul>
+</nav>
+
+<hr>
+
+
+</body>
+
+<p>Twoja podróż do wymarzonej sylwetki zaczyna się tutaj!</p>
+
+
+
+<div class="footer">
+    <p><b>Disclaimer:</b> DietTracker to narzędzie służące do monitorowania diety i promowania zdrowego stylu życia. Informacje zawarte na tej stronie nie są zastępstwem profesjonalnej porady medycznej, diagnozy lub leczenia. Zawsze skonsultuj się z lekarzem lub specjalistą od żywienia przed podjęciem jakichkolwiek zmian w swojej diecie lub stylu życia, zwłaszcza jeśli masz jakiekolwiek schorzenia zdrowotne. Nie ponosimy odpowiedzialności za jakiekolwiek szkody wynikłe z wykorzystania informacji zawartych na tej stronie.</p>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Wszystkie posiłki</h1>
+
+    <form method="get" action="{% url 'all_meals' %}">
+        <input type="text" name="search" placeholder="Wpisz nazwę posiłku">
+        <button type="submit" class="customButton">Szukaj</button>
+    </form>
+
+    <p>Wpisy są tworzone przez użytkowników, więc wartości mogą nie być dokładne.</p>
+
+
+    {% for meal in meals %}
+        <div>
+            {{ meal.name }} - Kalorie: {{ meal.calories|default:"-" }}, Białko: {{ meal.protein|default:"-" }}, Węglowodany: {{ meal.carbohydrates|default:"-" }}, Tłuszcze: {{ meal.fat|default:"-" }}
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                {{ add_meal_form.as_p }}
+                <input type="hidden" name="meal_id" value="{{ meal.id }}">
+                <button type="submit" class="customButton">Dodaj posiłek</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No meals found</p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="customButton">&laquo; pierwsza</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="customButton">poprzednia</a>
+                {% endif %}
+                <span class="current">
+                    Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="customButton">następna</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="customButton">ostatnia &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        <form action="{% url 'profile' %}">
+  <button type="submit" class="customButton">Wróć</button>
+    {% endif %}
+{% endblock %}

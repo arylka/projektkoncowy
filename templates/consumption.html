@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+    {{ meal_consumption_form.as_p }}
+  <button type="submit" class="customButton">Dodaj Posiłek</button>
+</form>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="customButton">Dodaj Produkt</button>
+</form>
+
+<p>Kalorie razem: {{ total_calories }}</p>
+{% if remaining_calories is not None %}
+    {% if remaining_calories > 0 %}
+        <p style="font-size: 14px; color: green;">Możesz zjeść jeszcze: {{ remaining_calories }}</p>
+    {% else %}
+        <p style="font-size: 14px;">Możesz zjeść jeszcze: {{ remaining_calories }}</p>
+    {% endif %}
+{% endif %}
+<p>Tłuszcze: {{ total_fat }}</p>
+<p>Węglowodany: {{ total_carbohydrates }}</p>
+{% if remaining_carbohydrates is not None %}
+    {% if remaining_carbohydrates > 0 %}
+        <p style="font-size: 14px; color: green;">Możesz zjeść jeszcze: {{ remaining_carbohydrates }}</p>
+    {% else %}
+        <p style="font-size: 14px;">Możesz zjeść jeszcze: {{ remaining_carbohydrates }}</p>
+    {% endif %}
+{% endif %}
+<p>Białko: {{ total_protein }}</p>
+{% if remaining_protein is not None %}
+    {% if remaining_protein > 0 %}
+        <p style="font-size: 14px; color: red;">Musisz zjeść jeszcze: {{ remaining_protein }}</p>
+    {% else %}
+        <p style="font-size: 14px;">Musisz zjeść jeszcze: {{ remaining_protein }}</p>
+    {% endif %}
+{% endif %}
+<ul>
+{% for food in foods %}
+    <li>{{ food.name }}</li>
+{% endfor %}
+</ul>
+    <h2>Lista Spożycia</h2>
+<form action="{% url 'consumption_list' %}">
+  <button type="submit" class="customButton">Przejdź do listy spożycia</button>
+</form>
+<form action="{% url 'profile' %}">
+  <button type="submit" class="customButton">Wróć</button>
+</form>
+{% endblock %}
+</html>

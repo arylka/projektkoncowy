@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+<p>Udało się!</p>
+{% if user.is_authenticated %}
+    <form action="{% url 'profile' %}">
+        <button type="submit" class="customButton">Wróć</button>
+    </form>
+{% else %}
+    <form action="{% url 'login' %}">
+        <button type="submit" class="customButton">Wróć</button>
+    </form>
+{% endif %}
+{% endblock %}

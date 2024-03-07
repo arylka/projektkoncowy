@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Historia wagi</title>
+</head>
+<body>
+    <h1>Historia wagi</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Waga</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in object_list %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.weight }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

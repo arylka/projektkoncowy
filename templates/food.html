@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+<body>
+    <h1>Lista produktów spożywczych</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Kalorie (kcal)</th>
+                <th>Protein (g)</th>
+                <th>Węglowodany (g)</th>
+                <th>Tłuszcz (g)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in foods %}
+            <tr>
+                <td>{{ food.name }}</td>
+                <td>{{ food.calories }}</td>
+                <td>{{ food.protein }}</td>
+                <td>{{ food.carbohydrates }}</td>
+                <td>{{ food.fat }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

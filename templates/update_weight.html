@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="customButton">Aktualizuj wagę</button>
+  </form>
+<form action="{% url 'profile' %}">
+  <button type="submit" class="customButton">Wróć</button>
+{% endblock %}
+</html>

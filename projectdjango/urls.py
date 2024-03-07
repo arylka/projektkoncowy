@@ -17,10 +17,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from diettracker import views
-from diettracker.views import LoginView
+from diettracker.views import (LoginView, RegisterView, SuccessView, ProfileView, WeightUpdateView, ConsumptionView, update_diet, LogoutView, WeightChartView, HomeView, DietView,
+                               BMIView, FoodView, MealListView, MealEditView, MealDeleteView, ConsumptionListView, AllMealsView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='index'),
-    path('login/', LoginView.as_view(), name='login')
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('success/', SuccessView.as_view(), name='success'),
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('update_weight/',WeightUpdateView.as_view(), name='update_weight'),
+    path('consumption/',ConsumptionView.as_view(), name='consumption'),
+    path('update_diet/', update_diet, name='update_diet'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('weight_chart/', WeightChartView.as_view(), name='weight_chart'),
+    path('diets/', DietView.as_view(), name='diets'),
+    path('bmi/', BMIView.as_view(), name='bmi'),
+    path('food/', FoodView.as_view(), name='food'),
+    path('meal/', MealListView.as_view(), name='meal_list'),
+    path('meal/<int:pk>/edit/', MealEditView.as_view(), name='meal_edit'),
+    path('meal/<int:pk>/delete/', MealDeleteView.as_view(), name='meal_delete'),
+    path('consumption_list/', ConsumptionListView.as_view(), name='consumption_list'),
+    path('all_meals', AllMealsView.as_view(), name='all_meals'),
 ]
+

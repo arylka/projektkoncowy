@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+<form id="bmiForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="button" class="customButton" value="Oblicz BMI" onclick="calculateBMI()">
+</form>
+
+<div id="bmiResult" class="result"></div>
+
+<script>
+    function calculateBMI() {
+        var weight = parseFloat(document.getElementById("id_weight").value);
+        var height = parseFloat(document.getElementById("id_height").value) / 100; // Convert height to meters
+        var bmi = (weight / (height * height)).toFixed(2);
+
+        document.getElementById("bmiResult").innerHTML = "Twoje BMI wynosi: " + bmi;
+    }
+</script>
+
+{% endblock %}

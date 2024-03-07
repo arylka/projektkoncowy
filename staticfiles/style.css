@@ -1,0 +1,36 @@
+.customButton {
+    border: 2px solid #FFBD9D;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #F9F9F9;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+}
+
+/* Hover na przyciskach */
+.customButton:hover {
+    background-color: #FFBD9D;
+    color: #FFFFFF;
+}
+
+/* Styl dla przycisków o klasie .btn */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #FFBD9D;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #FFBD9D;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover na przyciskach .btn */
+.btn:hover {
+    background-color: #FFFFFF;
+    color: #FFBD9D;
+}

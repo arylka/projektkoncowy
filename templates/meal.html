@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Twoje posiłki</h1>
+<ul>
+  {% for meal in meals %}
+    <li>
+      <div style="display: inline-block;">
+        Nazwa: {{ meal.name }}, Kcal: {{ meal.calories }}
+        {% if meal.protein or meal.carbohydrates or meal.fat %}
+        ,
+        {% if meal.protein %} Białko: {{ meal.protein }}, {% endif %}
+        {% if meal.carbohydrates %} Węglowodany: {{ meal.carbohydrates }}, {% endif %}
+        {% if meal.fat %} Tłuszcze: {{ meal.fat }}, {% endif %}
+        {% endif %}
+      </div>
+      <div style="display: inline-block; margin-left: 10px;">
+        <form method="post" action="{% url 'meal_edit' pk=meal.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="edit" value="{{ meal.pk }}">
+          <button type="submit" class="customButton">Edytuj</button>
+        </form>
+      </div>
+      <div style="display: inline-block; margin-left: 10px;">
+        <form method="post" action="{% url 'meal_delete' pk=meal.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="delete" value="{{ meal.pk }}">
+          <button type="submit" class="customButton">Usuń</button>
+        </form>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Formularz do dodawania nowego posiłku -->
+<h2>Dodaj nowy posiłek</h2>
+<form method="post" action="{% url 'meal_list' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="customButton">Dodaj</button>
+</form>
+
+    <form action="{% url 'all_meals' %}">
+  <button type="submit" class="customButton">Zobacz posiłki innych użytkowników</button>
+</form>
+
+<form action="{% url 'profile' %}">
+  <button type="submit" class="customButton">Wróć</button>
+</form>
+{% endblock %}

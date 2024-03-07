@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+<html lang="en">
+{% block content %}
+    <p><strong>Uzupełnij jedynie te warunki, które odpowiadają twojej diecie!</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="customButton">Aktualizuj dietę!</button>
+    </form>
+<form action="{% url 'profile' %}">
+  <button type="submit" class="customButton">Wróć</button>
+{% endblock %}
